@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Compulsory1.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="glad.c" />
@@ -173,9 +174,13 @@
     <Content Include="Shaders\Shader.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="render.h" />
+    <ClInclude Include="Setup.h" />
     <ClInclude Include="Shaders.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
