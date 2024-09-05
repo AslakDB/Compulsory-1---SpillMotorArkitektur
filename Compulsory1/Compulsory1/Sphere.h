@@ -1,6 +1,15 @@
 ﻿#pragma once
 #include "Model.h"
 
+class Sphere{
+
+private:
+    float momentum = 0;
+    float Speed = momentum;
+    glm::vec3 Direction = glm::vec3(0.f,1.f,0.f);
+
+public:
+    
 inline void SubDivide(int A,int B, int C, int NumOfDiv, model& SphereModel)
 {
     
@@ -12,11 +21,11 @@ inline void SubDivide(int A,int B, int C, int NumOfDiv, model& SphereModel)
         
 
         int index1 =SphereModel.vertices.size(); 
-        SphereModel.vertices.emplace_back(v1,glm::vec3(0.f),glm::vec3(0.6f));
+        SphereModel.vertices.emplace_back(v1,glm::vec3(0.f),glm::vec3(1.f,0.f,0.f));
         int index2 = SphereModel.vertices.size();
-        SphereModel.vertices.emplace_back(v2,glm::vec3(0.f),glm::vec3(0.6f));
+        SphereModel.vertices.emplace_back(v2,glm::vec3(0.f),glm::vec3(1.f,0.f,0.f));
         int index3 = SphereModel.vertices.size();
-        SphereModel.vertices.emplace_back(v3,glm::vec3(0.f),glm::vec3(0.6f));
+        SphereModel.vertices.emplace_back(v3,glm::vec3(0.f),glm::vec3(1.f,0.f,0.f));
         
         SubDivide(A,index1,index2, NumOfDiv -1, SphereModel);
         SubDivide(C,index2,index3, NumOfDiv -1,SphereModel);
@@ -60,3 +69,4 @@ inline void CreateSphere(model& SphereModel)
     
 SphereModel.Bind();
 }
+};

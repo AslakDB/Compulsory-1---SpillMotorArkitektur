@@ -1,7 +1,4 @@
-﻿//
-// Created by askel on 4/2/2024.
-//
-
+﻿#pragma once
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Camera.h"
@@ -9,11 +6,12 @@
 #include "Floor.h"
 #include "Sphere.h"
 
+Sphere sphere;
 
 #ifndef RENDER_H
 #define RENDER_H
 Camera camera;
-
+Floor floors;
 bool firstMouse = true;
 
 float lastX = 960, lastY = 540;
@@ -59,9 +57,9 @@ bool inside;
         // CreateMeshBox(NpcBox);
 
         
-      CreateFloor(floorModel);
-        CreateSphere(SphereModel);
-        CreateFloor(roofModel);
+      floors.CreateFloor(floorModel);
+       sphere.CreateSphere(SphereModel);
+        floors.CreateFloor(roofModel);
 
         roofModel.PlayerPos = glm::vec3(2.f,5.f,0.f);
         SphereModel.PlayerPos = glm::vec3(0.f);
@@ -77,7 +75,7 @@ bool inside;
         while (!glfwWindowShouldClose(window))
             {
 
-            
+            std::cout<<camera.yaw<< '\n';
             
             float currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;

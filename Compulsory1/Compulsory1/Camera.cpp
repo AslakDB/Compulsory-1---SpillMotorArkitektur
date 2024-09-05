@@ -1,8 +1,5 @@
 ﻿#include "Camera.h"
 
-
-
-
 void Camera::tick(unsigned int shaderProgram)
 {
    // cameraPos =  cameraFront * 6.f;
