@@ -1,6 +1,4 @@
 ﻿//
-// Created by askel on 3/18/2024.
-//
 
 #ifndef SHADERS_H
 #define SHADERS_H

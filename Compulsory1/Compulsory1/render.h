@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include "Camera.h"
 #include "Model.h"
+#include "Floor.h"
 
 
 #ifndef RENDER_H
@@ -21,13 +22,14 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void ProsessInput(GLFWwindow *window, float deltaTime);
 
 
+
 struct Render {
 bool inside;
     bool isMovingForward;
 
-   // model NpcGraph;
+    model floorModel;
 
-    // std::vector<model*> models;
+    std::vector<model*> models;
     // model ThePlane;
     // model PlayerBox;
     // model NpcBox;
@@ -36,7 +38,7 @@ bool inside;
 
     void render(GLFWwindow* window, unsigned int shaderProgram, float deltaTime, float lastFrame) {
 
-        // models.emplace_back(&ThePlane);
+        models.emplace_back(&floorModel);
         // models.emplace_back(&PlayerBox);
         // models.emplace_back(&NpcGraph);
         // models.emplace_back(&NpcBox);
@@ -52,7 +54,8 @@ bool inside;
         // CreateMeshBox(PlayerBox);
         // CreateMeshBox(NpcBox);
 
-      
+        
+      CreateFloor(floorModel);
 
         
 
@@ -64,7 +67,7 @@ bool inside;
 
         while (!glfwWindowShouldClose(window))
             {
-
+            
             float currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
             lastFrame = currentFrame;
@@ -123,9 +126,11 @@ bool inside;
             glLineWidth(3);
 
 // This has to be undone, but after we have made some models to draw
-            /*for (model* element: models) {
+
+
+            for (model* element: models) {
                 element->DrawMesh(shaderProgram);
-            }*/
+            }
             glfwSwapBuffers(window);
             glfwPollEvents();
             }

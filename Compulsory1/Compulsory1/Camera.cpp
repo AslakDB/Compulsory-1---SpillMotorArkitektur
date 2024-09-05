@@ -5,7 +5,7 @@
 
 void Camera::tick(unsigned int shaderProgram)
 {
-    cameraPos = cameraFront * 6.f;
+   // cameraPos =  cameraFront * 6.f;
     // glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
     glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
