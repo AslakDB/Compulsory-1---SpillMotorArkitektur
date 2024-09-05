@@ -163,7 +163,6 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Compulsory1.cpp" />
-    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="Shaders.cpp" />
   </ItemGroup>
@@ -180,6 +179,7 @@
     <ClInclude Include="render.h" />
     <ClInclude Include="Setup.h" />
     <ClInclude Include="Shaders.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

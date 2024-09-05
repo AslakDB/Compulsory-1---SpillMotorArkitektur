@@ -1,6 +1,4 @@
-﻿//
-// Created by askel on 4/8/2024.
-//
+﻿#pragma once
 #include <glad/glad.h>
 
 
@@ -9,8 +7,7 @@
 #include <glm/glm.hpp>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
-#ifndef MODEL_H
-#define MODEL_H
+
 
 class model
 {
@@ -69,4 +66,5 @@ unsigned int VBO, VAO, EBO;
         glBindVertexArray(0);
     }
 };
-#endif //MODEL_H
+
+

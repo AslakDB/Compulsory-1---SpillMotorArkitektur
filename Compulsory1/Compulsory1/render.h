@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Model.h"
 #include "Floor.h"
+#include "Sphere.h"
 
 
 #ifndef RENDER_H
@@ -28,7 +29,8 @@ bool inside;
     bool isMovingForward;
 
     model floorModel;
-
+    model SphereModel;
+    model roofModel;
     std::vector<model*> models;
     // model ThePlane;
     // model PlayerBox;
@@ -39,6 +41,8 @@ bool inside;
     void render(GLFWwindow* window, unsigned int shaderProgram, float deltaTime, float lastFrame) {
 
         models.emplace_back(&floorModel);
+        models.emplace_back(&roofModel);
+        models.emplace_back(&SphereModel);
         // models.emplace_back(&PlayerBox);
         // models.emplace_back(&NpcGraph);
         // models.emplace_back(&NpcBox);
@@ -56,6 +60,11 @@ bool inside;
 
         
       CreateFloor(floorModel);
+        CreateSphere(SphereModel);
+        CreateFloor(roofModel);
+
+        roofModel.PlayerPos = glm::vec3(2.f,5.f,0.f);
+        SphereModel.PlayerPos = glm::vec3(0.f);
 
         
 
@@ -67,6 +76,8 @@ bool inside;
 
         while (!glfwWindowShouldClose(window))
             {
+
+            
             
             float currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
@@ -124,9 +135,7 @@ bool inside;
             glUniform3fv(LightLoc, 1, glm::value_ptr(glm::vec3(5,20,0)));
 
             glLineWidth(3);
-
-// This has to be undone, but after we have made some models to draw
-
+            
 
             for (model* element: models) {
                 element->DrawMesh(shaderProgram);
