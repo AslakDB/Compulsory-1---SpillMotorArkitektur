@@ -5,11 +5,10 @@ class Sphere{
 
 private:
     float momentum = 0;
-    float Speed = momentum;
-    glm::vec3 Direction = glm::vec3(0.f,1.f,0.f);
+    
 
 public:
-    
+    glm::vec3 Speed = glm::vec3(0.f,0.f,-1.f);
 inline void SubDivide(int A,int B, int C, int NumOfDiv, model& SphereModel)
 {
     
@@ -68,5 +67,13 @@ inline void CreateSphere(model& SphereModel)
     }
     
 SphereModel.Bind();
+
+    //Not the best way to scale, but having problems doing this during creation
+    SphereModel.modelMatrix = glm::scale(SphereModel.modelMatrix, glm::vec3(0.5f, 0.5f, 0.5f));
+}
+
+    void Move(model& SphereModel, float deltatime)
+{
+    SphereModel.modelMatrix = glm::translate(SphereModel.modelMatrix,Speed * deltatime);
 }
 };

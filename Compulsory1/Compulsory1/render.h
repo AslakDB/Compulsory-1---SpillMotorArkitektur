@@ -61,8 +61,9 @@ bool inside;
        sphere.CreateSphere(SphereModel);
         floors.CreateFloor(roofModel);
 
-        roofModel.PlayerPos = glm::vec3(2.f,5.f,0.f);
-        SphereModel.PlayerPos = glm::vec3(0.f);
+        roofModel.modelMatrix = glm::translate(roofModel.modelMatrix, glm::vec3(0.0f, 5.0f, 0.0f));
+      
+        //SphereModel.PlayerPos = glm::vec3(0.f);
 
         
 
@@ -75,7 +76,7 @@ bool inside;
         while (!glfwWindowShouldClose(window))
             {
 
-            std::cout<<camera.yaw<< '\n';
+            sphere.Move(SphereModel, deltaTime);
             
             float currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
@@ -203,9 +204,9 @@ void ProsessInput(GLFWwindow *window, float deltaTime) {
     if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
         camera.cameraPos -= cameraSpeed * camera.cameraUp;
 
-    /*if(glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
-        Player.PlayerPos +=  glm::vec3(1.f* deltaTime,0,0);
-    if(glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+    if(glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+        sphere.Speed = sphere.Speed * glm::vec3(-1);
+    /*if(glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
         Player.PlayerPos +=  glm::vec3(0,0,-1.f* deltaTime);
     if(glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
 
