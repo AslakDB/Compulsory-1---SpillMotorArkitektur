@@ -84,7 +84,7 @@ bool inside;
 
 
         // There 100% is a way better method of doing this, but it works for now.
-        ZWallN.modelMatrix = glm::translate(ZWallN.modelMatrix, glm::vec3(0, 0, -4.5f));
+        /*ZWallN.modelMatrix = glm::translate(ZWallN.modelMatrix, glm::vec3(0, 0, -4.5f));
         ZWallN.modelMatrix = glm::rotate(ZWallN.modelMatrix, glm::radians(90.0f), glm::vec3(1, 0, 0));
         ZWallN.modelMatrix = glm::scale(ZWallN.modelMatrix, glm::vec3(1, 1, 0.2));
 
@@ -98,7 +98,7 @@ bool inside;
 
         XWallP.modelMatrix = glm::translate(XWallP.modelMatrix, glm::vec3(4.5, 0, 0));
         XWallP.modelMatrix = glm::rotate(XWallP.modelMatrix, glm::radians(90.0f), glm::vec3(0, 0, 1));
-        XWallP.modelMatrix = glm::scale(XWallP.modelMatrix, glm::vec3(0.2, 1, 1));
+        XWallP.modelMatrix = glm::scale(XWallP.modelMatrix, glm::vec3(0.2, 1, 1));*/
         //roofModel.modelMatrix = glm::translate(roofModel.modelMatrix, glm::vec3(0.0f, 5.0f, 0.0f));
       
         //SphereModel.PlayerPos = glm::vec3(0.f);
@@ -114,8 +114,8 @@ bool inside;
         while (!glfwWindowShouldClose(window))
             {
 
-            sphere.Move(SphereModel, deltaTime, glm::vec3 (0.f, 0.f, 3.f));
-            sphere.Move(SphereModel2, deltaTime,glm::vec3 (0.f, 0.f, -3.f));
+            sphere.Move(SphereModel, deltaTime, sphere.Speed);
+            sphere.Move(SphereModel2, deltaTime,sphere.Speed);
             
             float currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
@@ -244,7 +244,7 @@ void ProsessInput(GLFWwindow *window, float deltaTime) {
         camera.cameraPos -= cameraSpeed * camera.cameraUp;
 
     if(glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
-        sphere.Speed = sphere.Speed * glm::vec3(-1);
+        sphere.Speed = sphere.Speed * glm::vec3(-0.8f);
     /*if(glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
         Player.PlayerPos +=  glm::vec3(0,0,-1.f* deltaTime);
     if(glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)

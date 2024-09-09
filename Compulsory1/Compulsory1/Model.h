@@ -20,8 +20,11 @@ unsigned int VBO, VAO, EBO;
     bool isLine = false;
 
 
-    glm::mat4 modelMatrix= glm::mat4(1.f);
-    glm::vec3 PlayerPos = glm::vec3(0.f, 0.f,0.f);
+   // glm::mat4 modelMatrix= glm::mat4(1.f);
+    
+    glm::vec3 PlayerPos = glm::vec3(0.f);
+    glm::vec3 PlayerScale = glm::vec3(0.f);
+    glm::vec3 PlayerRotation = glm::vec3(0.f);
     void Bind()
     {
         glGenVertexArrays(1, &VAO);
@@ -49,11 +52,17 @@ unsigned int VBO, VAO, EBO;
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);     glBindVertexArray(0);
     }
+
+    glm::vec3 GetPlayerPos(){return PlayerPos;}
+    glm::vec3 GetPlayerScale(){return PlayerScale;}
+    glm::vec3 GetPlayerRotation(){return PlayerRotation;}
+    
     void DrawMesh(unsigned int shaderProgram)
     {
         glUseProgram(shaderProgram);
+        
         int modelLoc = glGetUniformLocation(shaderProgram, "model");
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(glm::mat4(1.f)));
         glBindVertexArray(VAO);
 
         if(isLine) {
