@@ -8,7 +8,8 @@ private:
     
 
 public:
-    glm::vec3 Speed = glm::vec3(0.f,0.f,-1.f);
+   
+    glm::vec3 Speed  = glm::vec3(0, 0, 0);
 inline void SubDivide(int A,int B, int C, int NumOfDiv, model& SphereModel)
 {
     
@@ -72,8 +73,14 @@ SphereModel.Bind();
     SphereModel.modelMatrix = glm::scale(SphereModel.modelMatrix, glm::vec3(0.5f, 0.5f, 0.5f));
 }
 
-    void Move(model& SphereModel, float deltatime)
+    void Move(model& SphereModel, float deltatime, glm::vec3 RandSpeed)
 {
+    Speed  = glm::vec3(RandSpeed);
     SphereModel.modelMatrix = glm::translate(SphereModel.modelMatrix,Speed * deltatime);
+}
+
+    void Collision(std::vector<model> AllModels)
+{
+    
 }
 };
