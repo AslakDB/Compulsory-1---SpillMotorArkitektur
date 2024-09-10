@@ -75,7 +75,7 @@ SphereModel.Bind();
 
     void Move(model& SphereModel, float deltatime, glm::vec3 RandSpeed)
 {
-    Speed  = glm::vec3(RandSpeed);
+    Speed  = RandSpeed;
    SphereModel.PlayerPos = Speed * deltatime;
 }
 

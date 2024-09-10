@@ -22,7 +22,7 @@ unsigned int VBO, VAO, EBO;
 
    // glm::mat4 modelMatrix= glm::mat4(1.f);
     
-    glm::vec3 PlayerPos = glm::vec3(1.f);
+    glm::vec3 PlayerPos = glm::vec3(0.f);
     glm::vec3 PlayerScale = glm::vec3(1.f);
     glm::vec3 PlayerRotation = glm::vec3(0.f);
     void Bind()

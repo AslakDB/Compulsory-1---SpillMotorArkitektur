@@ -39,9 +39,6 @@ bool inside;
     model XWallN;
     
     std::vector<model*> models;
-    // model ThePlane;
-    // model PlayerBox;
-    // model NpcBox;
 
 
 
@@ -57,21 +54,10 @@ bool inside;
         models.emplace_back(&ZWallN);
         models.emplace_back(&XWallP);
         models.emplace_back(&XWallN);
-        // models.emplace_back(&PlayerBox);
-        // models.emplace_back(&NpcGraph);
-        // models.emplace_back(&NpcBox);
+       
 
         glm::mat4 trans = glm::mat4(1.0f);
         glm::mat4 projection;
-
-        // CreateMeshPlane(ThePlane, 20, 20);
-        //
-        //
-        //
-        //
-        // CreateMeshBox(PlayerBox);
-        // CreateMeshBox(NpcBox);
-
         
       floors.CreateFloor(floorModel);
        sphere.CreateSphere(SphereModel);
@@ -83,38 +69,31 @@ bool inside;
         floors.CreateFloor(XWallN);
 
 
-        floorModel.PlayerPos = glm::vec3(0.f,-1.f,0.f);
+        floorModel.PlayerPos = glm::vec3(0.f,0.f,0.f);
        
-        ZWallN.PlayerPos= glm::vec3(0.f, -1, -4.5f);
+        ZWallN.PlayerPos= glm::vec3(0.f, 0, -4.5f);
         ZWallN.PlayerRotation = glm::vec3(90.f,0.f,0.f);
         ZWallN.PlayerScale = glm::vec3(1.f,1.f,0.1f);
         
-        ZWallP.PlayerPos= glm::vec3(0.f, -1.f, 4.5f);
+        ZWallP.PlayerPos= glm::vec3(0.f, 0.f, 4.5f);
         ZWallP.PlayerRotation = glm::vec3(-90.f,0.f,0.f);
         ZWallP.PlayerScale = glm::vec3(1.f,1.f,0.1f);
         
-        XWallN.PlayerPos= glm::vec3(-4.5f, -1.f, 0.f);
+        XWallN.PlayerPos= glm::vec3(-4.5f, 0.f, 0.f);
         XWallN.PlayerRotation = glm::vec3(0.f,0.f,-90.f);
         XWallN.PlayerScale = glm::vec3(0.1f,1.f,1.f);
         
-        XWallP.PlayerPos= glm::vec3(4.5f, -1.f, 0.f);
+        XWallP.PlayerPos= glm::vec3(4.5f, 0.f, 0.f);
         XWallP.PlayerRotation = glm::vec3(0.f,0.f,90.f);
         XWallP.PlayerScale = glm::vec3(0.1f,1.f,1.f);
         
-        SphereModel.PlayerPos = glm::vec3(1.f,-1.f,1.f);
-
+       // SphereModel.PlayerPos = glm::vec3(1.f,0.f,1.f);
         
-
-        // bool isMovingforward = true;
-        //
-        // float NpcXPos = 3.0f;
-        // float NpcYPos = 0.0f;
-        // float NpcZPos = f(NpcXPos);
-
         while (!glfwWindowShouldClose(window))
             {
 
-           // sphere.Move(SphereModel, deltaTime, sphere.Speed);
+            
+           sphere.Move(SphereModel, deltaTime, glm::vec3(0.f,0.f,-3.f));
             //sphere.Move(SphereModel2, deltaTime,sphere.Speed);
             
             float currentFrame = glfwGetTime();
@@ -126,43 +105,7 @@ bool inside;
 
             camera.tick(shaderProgram);
 
-            /*for (auto element: ThePlane.indices) {
-                calculateBarycentric(ThePlane.vertices[element.A], ThePlane.vertices[element.B]
-                    ,ThePlane.vertices[element.C], PlayerBox.PlayerPos );
-            }
-            PlayerBox.modelMatrix = glm::translate(glm::mat4(1.f), PlayerBox.PlayerPos);*/
-
-
-
-
-            /*MoveNPC(NpcBox, glm::vec3(NpcXPos, NpcYPos, NpcZPos));
-            if (NpcXPos > 8.25f)
-            {
-                isMovingForward = false;
-            }
-            if (NpcXPos < 2.0f)
-            {
-                isMovingForward = true;
-            }
-
-            if (isMovingForward)
-            {
-                NpcXPos += 1 * deltaTime;
-                NpcZPos = f(NpcXPos);
-            }
-            else
-            {
-                NpcXPos -= 1 * deltaTime;
-                NpcZPos = f(NpcXPos);
-            }
-
-
-            for (auto element: ThePlane.indices) {
-                calculateBarycentric(ThePlane.vertices[element.A], ThePlane.vertices[element.B]
-                    ,ThePlane.vertices[element.C], NpcBox.PlayerPos );
-            }
-
-            NpcBox.modelMatrix = glm::translate(glm::mat4(1.f), NpcBox.PlayerPos);*/
+         
             glClearColor(0.5f, 0.99f, 0.5f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -251,12 +194,7 @@ void ProsessInput(GLFWwindow *window, float deltaTime) {
 
     if(glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
         sphere.Speed = sphere.Speed * glm::vec3(-0.8f);
-    /*if(glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
-        Player.PlayerPos +=  glm::vec3(0,0,-1.f* deltaTime);
-    if(glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
 
-    if(glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
-        Player.PlayerPos +=  glm::vec3(0,0,1.f* deltaTime);*/
 
 }
 #endif //RENDER_H
