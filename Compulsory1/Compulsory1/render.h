@@ -83,25 +83,29 @@ bool inside;
         floors.CreateFloor(XWallN);
 
 
-        // There 100% is a way better method of doing this, but it works for now.
-        /*ZWallN.modelMatrix = glm::translate(ZWallN.modelMatrix, glm::vec3(0, 0, -4.5f));
-        ZWallN.modelMatrix = glm::rotate(ZWallN.modelMatrix, glm::radians(90.0f), glm::vec3(1, 0, 0));
-        ZWallN.modelMatrix = glm::scale(ZWallN.modelMatrix, glm::vec3(1, 1, 0.2));
-
-        ZWallP.modelMatrix = glm::translate(ZWallP.modelMatrix, glm::vec3(0, 0, 4.5f));
-        ZWallP.modelMatrix = glm::rotate(ZWallP.modelMatrix, glm::radians(-90.0f), glm::vec3(1, 0, 0));
-        ZWallP.modelMatrix = glm::scale(ZWallP.modelMatrix, glm::vec3(1, 1, 0.2));
-
-        XWallN.modelMatrix = glm::translate(XWallN.modelMatrix, glm::vec3(-4.5, 0, 0));
-        XWallN.modelMatrix = glm::rotate(XWallN.modelMatrix, glm::radians(-90.0f), glm::vec3(0, 0, 1));
-        XWallN.modelMatrix = glm::scale(XWallN.modelMatrix, glm::vec3(0.2, 1, 1));
-
-        XWallP.modelMatrix = glm::translate(XWallP.modelMatrix, glm::vec3(4.5, 0, 0));
-        XWallP.modelMatrix = glm::rotate(XWallP.modelMatrix, glm::radians(90.0f), glm::vec3(0, 0, 1));
-        XWallP.modelMatrix = glm::scale(XWallP.modelMatrix, glm::vec3(0.2, 1, 1));*/
-        //roofModel.modelMatrix = glm::translate(roofModel.modelMatrix, glm::vec3(0.0f, 5.0f, 0.0f));
-      
-        //SphereModel.PlayerPos = glm::vec3(0.f);
+        floorModel.PlayerPos = glm::vec3(0,-1,0);
+       
+        ZWallN.PlayerPos= glm::vec3(0, -1, -4.5f);
+        ZWallN.PlayerRadians = 90;
+        ZWallN.PlayerRotation = glm::vec3(1,0,0);
+        ZWallN.PlayerScale = glm::vec3(1,1,0.1f);
+        
+        ZWallP.PlayerPos= glm::vec3(0, -1, 4.5f);
+        ZWallP.PlayerRadians = -90;
+        ZWallP.PlayerRotation = glm::vec3(1,0,0);
+        ZWallP.PlayerScale = glm::vec3(1,1,0.1f);
+        
+        XWallN.PlayerPos= glm::vec3(-4.5, -1, 0);
+        XWallN.PlayerRadians = -90;
+        XWallN.PlayerRotation = glm::vec3(0,0,1);
+        XWallN.PlayerScale = glm::vec3(0.1f,1,1.f);
+        
+        XWallP.PlayerPos= glm::vec3(4.5, -1, 0);
+        XWallP.PlayerRadians = 90;
+        XWallP.PlayerRotation = glm::vec3(0,0,1);
+        XWallP.PlayerScale = glm::vec3(0.1f,1,1.f);
+        
+        SphereModel.PlayerPos = glm::vec3(1,-1,1);
 
         
 
@@ -114,8 +118,8 @@ bool inside;
         while (!glfwWindowShouldClose(window))
             {
 
-            sphere.Move(SphereModel, deltaTime, sphere.Speed);
-            sphere.Move(SphereModel2, deltaTime,sphere.Speed);
+           // sphere.Move(SphereModel, deltaTime, sphere.Speed);
+            //sphere.Move(SphereModel2, deltaTime,sphere.Speed);
             
             float currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
@@ -174,10 +178,16 @@ bool inside;
 
             glLineWidth(3);
             
-
+            for (model* element : models)
+            {
+                element->CalcualteMatrix();
+            }
+            
             for (model* element: models) {
                 element->DrawMesh(shaderProgram);
             }
+
+            
             glfwSwapBuffers(window);
             glfwPollEvents();
             }
