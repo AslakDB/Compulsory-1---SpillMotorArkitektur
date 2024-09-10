@@ -24,8 +24,7 @@ unsigned int VBO, VAO, EBO;
     
     glm::vec3 PlayerPos = glm::vec3(1.f);
     glm::vec3 PlayerScale = glm::vec3(1.f);
-    glm::vec3 PlayerRotation = glm::vec3(1.f);
-    float PlayerRadians = 0;
+    glm::vec3 PlayerRotation = glm::vec3(0.f);
     void Bind()
     {
         glGenVertexArrays(1, &VAO);
@@ -62,7 +61,9 @@ unsigned int VBO, VAO, EBO;
     {
         glm::mat4 Modelmatrix  =glm::mat4(1.f);
         Modelmatrix = glm::translate(Modelmatrix, PlayerPos);
-        Modelmatrix = glm::rotate(Modelmatrix,glm::radians(PlayerRadians),PlayerRotation);
+        Modelmatrix = glm::rotate(Modelmatrix,glm::radians(PlayerRotation.x),glm::vec3(1.f,0.f,0.f));
+        Modelmatrix = glm::rotate(Modelmatrix,glm::radians(PlayerRotation.y),glm::vec3(0.f,1.f,0.f));
+        Modelmatrix = glm::rotate(Modelmatrix,glm::radians(PlayerRotation.z),glm::vec3(0.f,0.f,1.f));
         Modelmatrix = glm::scale(Modelmatrix,PlayerScale);
         return Modelmatrix;
     } 

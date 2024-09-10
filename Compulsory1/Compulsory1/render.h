@@ -83,29 +83,25 @@ bool inside;
         floors.CreateFloor(XWallN);
 
 
-        floorModel.PlayerPos = glm::vec3(0,-1,0);
+        floorModel.PlayerPos = glm::vec3(0.f,-1.f,0.f);
        
-        ZWallN.PlayerPos= glm::vec3(0, -1, -4.5f);
-        ZWallN.PlayerRadians = 90;
-        ZWallN.PlayerRotation = glm::vec3(1,0,0);
-        ZWallN.PlayerScale = glm::vec3(1,1,0.1f);
+        ZWallN.PlayerPos= glm::vec3(0.f, -1, -4.5f);
+        ZWallN.PlayerRotation = glm::vec3(90.f,0.f,0.f);
+        ZWallN.PlayerScale = glm::vec3(1.f,1.f,0.1f);
         
-        ZWallP.PlayerPos= glm::vec3(0, -1, 4.5f);
-        ZWallP.PlayerRadians = -90;
-        ZWallP.PlayerRotation = glm::vec3(1,0,0);
-        ZWallP.PlayerScale = glm::vec3(1,1,0.1f);
+        ZWallP.PlayerPos= glm::vec3(0.f, -1.f, 4.5f);
+        ZWallP.PlayerRotation = glm::vec3(-90.f,0.f,0.f);
+        ZWallP.PlayerScale = glm::vec3(1.f,1.f,0.1f);
         
-        XWallN.PlayerPos= glm::vec3(-4.5, -1, 0);
-        XWallN.PlayerRadians = -90;
-        XWallN.PlayerRotation = glm::vec3(0,0,1);
-        XWallN.PlayerScale = glm::vec3(0.1f,1,1.f);
+        XWallN.PlayerPos= glm::vec3(-4.5f, -1.f, 0.f);
+        XWallN.PlayerRotation = glm::vec3(0.f,0.f,-90.f);
+        XWallN.PlayerScale = glm::vec3(0.1f,1.f,1.f);
         
-        XWallP.PlayerPos= glm::vec3(4.5, -1, 0);
-        XWallP.PlayerRadians = 90;
-        XWallP.PlayerRotation = glm::vec3(0,0,1);
-        XWallP.PlayerScale = glm::vec3(0.1f,1,1.f);
+        XWallP.PlayerPos= glm::vec3(4.5f, -1.f, 0.f);
+        XWallP.PlayerRotation = glm::vec3(0.f,0.f,90.f);
+        XWallP.PlayerScale = glm::vec3(0.1f,1.f,1.f);
         
-        SphereModel.PlayerPos = glm::vec3(1,-1,1);
+        SphereModel.PlayerPos = glm::vec3(1.f,-1.f,1.f);
 
         
 
@@ -174,7 +170,7 @@ bool inside;
             glUniform3fv(viewLoc, 1, glm::value_ptr(camera.cameraPos));
 
             int LightLoc = glGetUniformLocation(shaderProgram, "lightPos");
-            glUniform3fv(LightLoc, 1, glm::value_ptr(glm::vec3(0,20,0)));
+            glUniform3fv(LightLoc, 1, glm::value_ptr(glm::vec3(0,10,0)));
 
             glLineWidth(3);
             
