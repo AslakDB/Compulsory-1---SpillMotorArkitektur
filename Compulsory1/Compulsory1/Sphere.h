@@ -76,11 +76,19 @@ SphereModel.Bind();
     void Move(model& SphereModel, float deltatime, glm::vec3 RandSpeed)
 {
     Speed  = RandSpeed;
-   SphereModel.PlayerPos = Speed * deltatime;
+   SphereModel.PlayerPos = SphereModel.PlayerPos +(Speed * deltatime);
 }
 
-    void Collision(std::vector<model> AllModels)
+    void Collision(model& SphereModel,model& WallModels)
 {
-    
+   
+    float Distance;
+    Distance = glm::distance(SphereModel.PlayerPos, WallModels.PlayerPos);
+    std::cout << "Distance: " << Distance << std::endl;
+    if (Distance < 0.1f)
+    {
+        std::cout<<"collision"<<'\n';
+        Speed *= glm::vec3(-1.f);
+    }
 }
 };

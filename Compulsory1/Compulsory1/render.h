@@ -87,14 +87,15 @@ bool inside;
         XWallP.PlayerRotation = glm::vec3(0.f,0.f,90.f);
         XWallP.PlayerScale = glm::vec3(0.1f,1.f,1.f);
         
-       // SphereModel.PlayerPos = glm::vec3(1.f,0.f,1.f);
-        
+      
+        srand(time(NULL));  sphere.Speed.z  = 2;
         while (!glfwWindowShouldClose(window))
             {
 
             
-           sphere.Move(SphereModel, deltaTime, glm::vec3(0.f,0.f,-3.f));
-            //sphere.Move(SphereModel2, deltaTime,sphere.Speed);
+          
+           sphere.Move(SphereModel, deltaTime, sphere.Speed);
+            sphere.Move(SphereModel2, deltaTime,sphere.Speed);
             
             float currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
@@ -126,6 +127,8 @@ bool inside;
                 element->DrawMesh(shaderProgram);
             }
 
+            sphere.Collision(SphereModel, ZWallP);
+            
             
             glfwSwapBuffers(window);
             glfwPollEvents();
