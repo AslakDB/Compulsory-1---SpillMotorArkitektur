@@ -127,7 +127,8 @@ bool inside;
                 element->DrawMesh(shaderProgram);
             }
 
-            sphere.Collision(SphereModel, ZWallP);
+            
+            sphere.Collision(SphereModel, models);
             
             
             glfwSwapBuffers(window);
