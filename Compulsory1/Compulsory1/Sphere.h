@@ -68,6 +68,7 @@ inline void CreateSphere(model& SphereModel)
     }
     
 SphereModel.Bind();
+    
 
     //Not the best way to scale, but having problems doing this during creation
     SphereModel.PlayerScale = glm::vec3(0.5f);
@@ -79,18 +80,5 @@ SphereModel.Bind();
    SphereModel.PlayerPos = SphereModel.PlayerPos +(Speed * deltatime);
 }
 
-    void Collision(model& SphereModel,std::vector<model*> AllModels)
-{
    
-    float Distance;
-    for (model* element : AllModels)
-    {
-        Distance = glm::distance(SphereModel.PlayerPos, element->PlayerPos);
-    }
-   // std::cout << "Distance: " << Distance << std::endl;
-    if (Distance < 0.1f)
-    {
-        Speed *= glm::vec3(-1.f);
-    }
-}
 };

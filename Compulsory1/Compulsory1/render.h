@@ -5,8 +5,10 @@
 #include "Model.h"
 #include "Floor.h"
 #include "Sphere.h"
+#include "Collision.h"
 
 Sphere sphere;
+Collision coll;
 
 #ifndef RENDER_H
 #define RENDER_H
@@ -28,7 +30,7 @@ bool inside;
 
     model floorModel;
     model SphereModel;
-    model SphereModel2;
+  //  model SphereModel2;
 
    // for (int in = 0; in < 5; i++)
     
@@ -48,7 +50,7 @@ bool inside;
         models.emplace_back(&floorModel);
         
         models.emplace_back(&SphereModel);
-        models.emplace_back(&SphereModel2);
+        //models.emplace_back(&SphereModel2);
         
         models.emplace_back(&ZWallP);
         models.emplace_back(&ZWallN);
@@ -61,7 +63,7 @@ bool inside;
         
       floors.CreateFloor(floorModel);
        sphere.CreateSphere(SphereModel);
-       sphere.CreateSphere(SphereModel2);
+     //  sphere.CreateSphere(SphereModel2);
 
         floors.CreateFloor(ZWallP);
         floors.CreateFloor(ZWallN);
@@ -86,6 +88,7 @@ bool inside;
         XWallP.PlayerPos= glm::vec3(4.5f, 0.f, 0.f);
         XWallP.PlayerRotation = glm::vec3(0.f,0.f,90.f);
         XWallP.PlayerScale = glm::vec3(0.1f,1.f,1.f);
+
         
       
         srand(time(NULL));  sphere.Speed.z  = 2;
@@ -95,7 +98,7 @@ bool inside;
             
           
            sphere.Move(SphereModel, deltaTime, sphere.Speed);
-            sphere.Move(SphereModel2, deltaTime,sphere.Speed);
+            //sphere.Move(SphereModel2, deltaTime,sphere.Speed);
             
             float currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
@@ -127,8 +130,11 @@ bool inside;
                 element->DrawMesh(shaderProgram);
             }
 
-            
-            sphere.Collision(SphereModel, models);
+
+           for (model* element : models)
+           {
+               if (coll.CheckCollision(SphereModel, element));
+           }
             
             
             glfwSwapBuffers(window);
