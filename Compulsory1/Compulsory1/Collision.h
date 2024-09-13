@@ -18,18 +18,5 @@ class Collision
         return CollisionX && CollisionZ;
     }
 
-    void CollisionCheck(model& SphereModel,std::vector<model*> AllModels)
-    {
-        float Distance;
-        for (model* element : AllModels)
-        {
-            Distance = glm::distance(SphereModel.PlayerPos, element->PlayerPos);
-        
-            if (Distance < 0.1f)
-            {
-                //Her skal collision calkulasjonen skje, men har bare -1 for å se om collision skjer i det hele tatt
-                //Speed *= glm::vec3(-1.f);
-            }
-        }
-    }
+    
 };
