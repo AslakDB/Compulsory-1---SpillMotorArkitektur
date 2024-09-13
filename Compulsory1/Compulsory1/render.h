@@ -133,7 +133,7 @@ bool inside;
 
            for (model* element : models)
            {
-               if (coll.CheckCollision(SphereModel, element));
+              //if (coll.CheckCollision(SphereModel, element));
            }
             
             
