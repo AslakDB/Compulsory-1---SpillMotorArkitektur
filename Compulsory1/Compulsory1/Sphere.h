@@ -10,7 +10,7 @@ private:
 public:
    
     glm::vec3 Speed  = glm::vec3(0, 0, -1);
-inline void SubDivide(int A,int B, int C, int NumOfDiv, model& SphereModel)
+ void SubDivide(int A,int B, int C, int NumOfDiv, model& SphereModel)
 {
     
     if(NumOfDiv > 0)
@@ -76,26 +76,11 @@ SphereModel.Bind();
 
     void Move(model& SphereModel, float deltatime, glm::vec3 RandSpeed)
 {
-    Speed  = RandSpeed;
-   SphereModel.PlayerPos = SphereModel.PlayerPos +(Speed * deltatime);
+   SphereModel.PlayerPos = SphereModel.PlayerPos + (RandSpeed * deltatime);
 }
 
 
     
-    void CollisionCheck(model& SphereModel,std::vector<model*> AllModels)
-{
-    float Distance;
-    for (model* element : AllModels)
-    {
-        Distance = glm::distance(SphereModel.PlayerPos, element->PlayerPos);
-        
-        if (Distance < 0.1f && Distance != 0.f)
-        {
-            //Her skal collision calkulasjonen skje, men har bare -1 for å se om collision skjer i det hele tatt
-            
-            Speed *= glm::vec3(-1.f);
-        }
-    }
-}
+   
    
 };

@@ -5,13 +5,12 @@
 #include "Model.h"
 #include "Floor.h"
 #include "Sphere.h"
-
+#include "Collision.h"
 
 Sphere sphere;
-//Collision coll;
+Collision coll;
 
-#ifndef RENDER_H
-#define RENDER_H
+
 Camera camera;
 Floor floors;
 bool firstMouse = true;
@@ -63,7 +62,7 @@ bool inside;
         
       floors.CreateFloor(floorModel);
        sphere.CreateSphere(SphereModel);
-    //  sphere.CreateSphere(SphereModel2);
+       //sphere.CreateSphere(SphereModel2);
 
         floors.CreateFloor(ZWallP);
         floors.CreateFloor(ZWallN);
@@ -89,17 +88,15 @@ bool inside;
         XWallP.PlayerRotation = glm::vec3(0.f,0.f,90.f);
         XWallP.PlayerScale = glm::vec3(0.1f,1.f,1.f);
 
-        //SphereModel.PlayerPos = glm::vec3(0.f,0.f,1.f);
+        SphereModel.PlayerPos = glm::vec3(4.f,0.f,-2.f);
       
-        srand(time(NULL)); sphere.Speed.z  = 0;
-        sphere.Speed.x = 2;
+        srand(time(NULL)); sphere.Speed.z  = -2;
+       // sphere.Speed.x = 2;
         while (!glfwWindowShouldClose(window))
             {
-
-            
           
            sphere.Move(SphereModel, deltaTime, sphere.Speed);
-           //sphere.Move(SphereModel2, deltaTime,sphere.Speed);
+          // sphere.Move(SphereModel2, deltaTime,-sphere.Speed);
             
             float currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
@@ -131,7 +128,8 @@ bool inside;
                 element->DrawMesh(shaderProgram);
             }
             
-            sphere.CollisionCheck(SphereModel, models);
+            coll.CollisionCheck(SphereModel, models, sphere.Speed);
+            //coll.CollisionCheck(SphereModel2 ,models, sphere.Speed);
             
             glfwSwapBuffers(window);
             glfwPollEvents();
@@ -199,8 +197,7 @@ void ProsessInput(GLFWwindow *window, float deltaTime) {
         camera.cameraPos -= cameraSpeed * camera.cameraUp;
 
     if(glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
-        sphere.Speed = sphere.Speed * glm::vec3(-0.8f);
+        sphere.Speed = glm::vec3(0.f);
 
 
 }
-#endif //RENDER_H
