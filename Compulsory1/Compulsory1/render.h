@@ -104,6 +104,8 @@ bool inside;
             {
 
             coll.SphereSphereCollision(sphere_models);
+           coll.SphereBoxCollision(sphere_models,models);
+            
            sphere.Move(SphereModel0, deltaTime, SphereModel0.Velocity);
            sphere.Move(SphereModel1, deltaTime, SphereModel1.Velocity);
             
@@ -145,7 +147,7 @@ bool inside;
 
             }
             
-             //coll.CollisionCheck( models, models);
+             
           
             
             
