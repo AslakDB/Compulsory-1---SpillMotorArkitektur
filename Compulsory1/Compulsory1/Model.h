@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <glad/glad.h>
 
-
+#include "AABB.h"
 #include <vector>
 #include "Vertex.h"
 #include <glm/glm.hpp>
@@ -17,9 +17,15 @@ public:
 unsigned int VBO, VAO, EBO;
     std::vector<Vertex> vertices;
     std::vector<Triangle> indices;
+    std::vector<glm::vec3> corners;
+
+    glm::mat4 ModelMatrix;
+
+    aabb BoundingBox;
+    
     bool isLine = false;
 
-
+    
    // glm::mat4 modelMatrix= glm::mat4(1.f);
     
     glm::vec3 PlayerPos = glm::vec3(0.f);
@@ -32,8 +38,7 @@ unsigned int VBO, VAO, EBO;
         glGenBuffers(1, &EBO);
 
         glBindVertexArray(VAO);
-
-
+        
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
@@ -51,29 +56,70 @@ unsigned int VBO, VAO, EBO;
         glEnableVertexAttribArray(2);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);     glBindVertexArray(0);
+
+        float MinX =  FLT_MAX;
+        float MaxX = -FLT_MAX;
+        float MinY =  FLT_MAX;
+        float MaxY = -FLT_MAX;
+        float MinZ =  FLT_MAX;
+        float MaxZ = -FLT_MAX;
+        for (Vertex element : vertices)
+        {
+            MinX = glm::min( MinX, element.XYZ.x);
+            MaxX = glm::max( MaxX, element.XYZ.x);
+            MinY = glm::min( MinY, element.XYZ.y);
+            MaxY = glm::max( MaxY, element.XYZ.y);
+            MinZ = glm::min( MinZ, element.XYZ.z);
+            MaxZ = glm::max( MaxZ, element.XYZ.z);
+        }
+        corners = {
+            glm::vec3(MinX, MinY, MinZ),
+            glm::vec3(MaxX, MinY, MinZ),
+            glm::vec3(MaxX, MaxY, MinZ),
+            glm::vec3(MinX, MaxY, MinZ),
+            glm::vec3(MinX, MinY, MaxZ),
+            glm::vec3(MaxX, MinY, MaxZ),
+            glm::vec3(MaxX, MaxY, MaxZ),
+            glm::vec3(MinX, MaxY, MaxZ)
+        };
+        
     }
 
+   
     glm::vec3 GetPlayerPos(){return PlayerPos;}
     glm::vec3 GetPlayerScale(){return PlayerScale;}
     glm::vec3 GetPlayerRotation(){return PlayerRotation;}
 
-    glm::mat4 CalcualteMatrix()
+    void CalculateMatrix()
     {
-        glm::mat4 Modelmatrix  =glm::mat4(1.f);
-        Modelmatrix = glm::translate(Modelmatrix, PlayerPos);
-        Modelmatrix = glm::rotate(Modelmatrix,glm::radians(PlayerRotation.x),glm::vec3(1.f,0.f,0.f));
-        Modelmatrix = glm::rotate(Modelmatrix,glm::radians(PlayerRotation.y),glm::vec3(0.f,1.f,0.f));
-        Modelmatrix = glm::rotate(Modelmatrix,glm::radians(PlayerRotation.z),glm::vec3(0.f,0.f,1.f));
-        Modelmatrix = glm::scale(Modelmatrix,PlayerScale);
-        return Modelmatrix;
+        ModelMatrix  =glm::mat4(1.f);
+        ModelMatrix = glm::translate(ModelMatrix, PlayerPos);
+        ModelMatrix = glm::rotate(ModelMatrix,glm::radians(PlayerRotation.x),glm::vec3(1.f,0.f,0.f));
+        ModelMatrix = glm::rotate(ModelMatrix,glm::radians(PlayerRotation.y),glm::vec3(0.f,1.f,0.f));
+        ModelMatrix = glm::rotate(ModelMatrix,glm::radians(PlayerRotation.z),glm::vec3(0.f,0.f,1.f));
+        ModelMatrix = glm::scale(ModelMatrix,PlayerScale);
     } 
+
+     void CalculateBoundingBox()
+    {
+            BoundingBox.MinPos = glm::vec3(FLT_MAX);
+            BoundingBox.MaxPos = glm::vec3(-FLT_MAX);
+       
+        for (glm::vec3 element : corners)
+        {
+            element = ModelMatrix * glm::vec4(element, 1.f);
+            BoundingBox.MinPos = glm::min(BoundingBox.MinPos, element);
+            BoundingBox.MaxPos = glm::max(BoundingBox.MaxPos, element);
+        }
+    }
+
     
     void DrawMesh(unsigned int shaderProgram)
     {
         glUseProgram(shaderProgram);
         
         int modelLoc = glGetUniformLocation(shaderProgram, "model");
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(CalcualteMatrix()));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(ModelMatrix));
         glBindVertexArray(VAO);
 
         if(isLine) {
@@ -84,6 +130,8 @@ unsigned int VBO, VAO, EBO;
         }
         glDrawElements(GL_TRIANGLES, indices.size()* 3, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
+
+        
     }
 };
 

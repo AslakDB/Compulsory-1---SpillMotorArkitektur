@@ -41,7 +41,7 @@ bool inside;
     
     std::vector<model*> models;
 
-
+    Render() = default;
 
     void render(GLFWwindow* window, unsigned int shaderProgram, float deltaTime, float lastFrame) {
 
@@ -88,7 +88,7 @@ bool inside;
         XWallP.PlayerRotation = glm::vec3(0.f,0.f,90.f);
         XWallP.PlayerScale = glm::vec3(0.1f,1.f,1.f);
 
-        SphereModel.PlayerPos = glm::vec3(4.f,0.f,-2.f);
+        SphereModel.PlayerPos = glm::vec3(0.f,0.2f,0.f);
       
         srand(time(NULL)); sphere.Speed.z  = -2;
        // sphere.Speed.x = 2;
@@ -107,7 +107,7 @@ bool inside;
 
             camera.tick(shaderProgram);
 
-         
+       
             glClearColor(0.5f, 0.99f, 0.5f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -121,14 +121,14 @@ bool inside;
             
             for (model* element : models)
             {
-                element->CalcualteMatrix();
-            }
-            
-            for (model* element: models) {
+                element->CalculateMatrix();
+                element->CalculateBoundingBox();
                 element->DrawMesh(shaderProgram);
             }
             
-            coll.CollisionCheck(SphereModel, models, sphere.Speed);
+           coll.CollisionCheck( models, sphere.Speed);
+            
+            
             //coll.CollisionCheck(SphereModel2 ,models, sphere.Speed);
             
             glfwSwapBuffers(window);

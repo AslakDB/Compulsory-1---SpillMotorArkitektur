@@ -173,6 +173,7 @@
     <Content Include="Shaders\Shader.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AABB.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Floor.h" />
