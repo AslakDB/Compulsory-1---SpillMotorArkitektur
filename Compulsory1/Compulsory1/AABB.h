@@ -16,7 +16,11 @@ glm::vec3 MinPos = glm::vec3(0);
         MinPos = inMinPos;
     }
 
-    static bool AABBIntersect(aabb Box1, aabb Box2)
+/// AABB collision detection
+/// @param Box1 
+/// @param Box2 
+/// @return 
+static bool AABBIntersect(aabb Box1, aabb Box2)
     {
         if (Box1.MaxPos.x < Box2.MinPos.x || Box1.MinPos.x > Box2.MaxPos.x)
         {
