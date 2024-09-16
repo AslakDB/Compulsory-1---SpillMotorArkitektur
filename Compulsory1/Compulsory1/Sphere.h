@@ -2,14 +2,10 @@
 #include "Model.h"
 
 class Sphere{
-
-private:
-    float momentum = 0;
     
-
 public:
    
-    glm::vec3 Speed  = glm::vec3(0, 0, -1);
+    float radius = 0.25f;
  void SubDivide(int A,int B, int C, int NumOfDiv, model& SphereModel)
 {
     
@@ -71,6 +67,7 @@ SphereModel.Bind();
     
 
     //Not the best way to scale, but having problems doing this during creation
+     
     SphereModel.PlayerScale = glm::vec3(0.5f);
 }
 

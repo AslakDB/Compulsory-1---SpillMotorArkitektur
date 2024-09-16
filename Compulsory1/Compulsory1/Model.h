@@ -31,6 +31,7 @@ unsigned int VBO, VAO, EBO;
     glm::vec3 PlayerPos = glm::vec3(0.f);
     glm::vec3 PlayerScale = glm::vec3(1.f);
     glm::vec3 PlayerRotation = glm::vec3(0.f);
+    glm::vec3 Velocity = glm::vec3(0.f);
     void Bind()
     {
         glGenVertexArrays(1, &VAO);
@@ -48,7 +49,7 @@ unsigned int VBO, VAO, EBO;
 
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
         glEnableVertexAttribArray(0);
-        // texture coord attribute
+        
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(3 * sizeof(float)));
         glEnableVertexAttribArray(1);
 

@@ -27,29 +27,32 @@ struct Render {
 bool inside;
     bool isMovingForward;
 
-    model floorModel;
-    model SphereModel;
-    //model SphereModel2;
-
-   // for (int in = 0; in < 5; i++)
     
-        //Creating the walls for collision, Z and X stands for X and X axis, N and P stands for the positive and negative axis on Z and X.
-    model ZWallP;
-    model ZWallN;
-    model XWallP;
-    model XWallN;
-    
-    std::vector<model*> models;
 
     Render() = default;
 
     void render(GLFWwindow* window, unsigned int shaderProgram, float deltaTime, float lastFrame) {
+        model floorModel;
+        model SphereModel0;
+        model SphereModel1;
 
+         for (int i = 0; i < 5; i++)
+         {
+             
+         }
+        
+        model ZWallP;
+        model ZWallN;
+        model XWallP;
+        model XWallN;
+    
+        std::vector<model*> models;
+        std::vector<model*> sphere_models;
         
         models.emplace_back(&floorModel);
         
-        models.emplace_back(&SphereModel);
-        //models.emplace_back(&SphereModel2);
+        sphere_models.emplace_back(&SphereModel0);
+        sphere_models.emplace_back(&SphereModel1);
         
         models.emplace_back(&ZWallP);
         models.emplace_back(&ZWallN);
@@ -61,8 +64,8 @@ bool inside;
         glm::mat4 projection;
         
       floors.CreateFloor(floorModel);
-       sphere.CreateSphere(SphereModel);
-       //sphere.CreateSphere(SphereModel2);
+       sphere.CreateSphere(SphereModel0);
+      sphere.CreateSphere(SphereModel1);
 
         floors.CreateFloor(ZWallP);
         floors.CreateFloor(ZWallN);
@@ -88,20 +91,27 @@ bool inside;
         XWallP.PlayerRotation = glm::vec3(0.f,0.f,90.f);
         XWallP.PlayerScale = glm::vec3(0.1f,1.f,1.f);
 
-        SphereModel.PlayerPos = glm::vec3(0.f,0.2f,0.f);
-      
-        srand(time(NULL)); sphere.Speed.z  = -2;
-       // sphere.Speed.x = 2;
+        SphereModel0.PlayerPos = glm::vec3(0.f,0.1f,2.f);
+        SphereModel1.PlayerPos = glm::vec3(0.2f,0.1f,-2.f);
+
+        SphereModel0.Velocity = glm::vec3(0.f,0.f,-1.f);
+        SphereModel1.Velocity = glm::vec3(0.f,0.f,1.f);
+        srand(time(NULL));
+
+       // float xdir = -1 + rand() % 10;
+        //sphere.Speed.x = 1.9;
         while (!glfwWindowShouldClose(window))
             {
-          
-           sphere.Move(SphereModel, deltaTime, sphere.Speed);
-          // sphere.Move(SphereModel2, deltaTime,-sphere.Speed);
+
+            coll.SphereSphereCollision(sphere_models);
+           sphere.Move(SphereModel0, deltaTime, SphereModel0.Velocity);
+           sphere.Move(SphereModel1, deltaTime, SphereModel1.Velocity);
             
             float currentFrame = glfwGetTime();
             deltaTime = currentFrame - lastFrame;
             lastFrame = currentFrame;
             ProsessInput(window, deltaTime);
+            
 
             projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
@@ -118,18 +128,26 @@ bool inside;
             glUniform3fv(LightLoc, 1, glm::value_ptr(glm::vec3(0,10,0)));
 
             glLineWidth(3);
+
             
+            for (model* element : sphere_models)
+            {
+                element->CalculateMatrix();
+                element->CalculateBoundingBox();
+                element->DrawMesh(shaderProgram);
+
+            }
             for (model* element : models)
             {
                 element->CalculateMatrix();
                 element->CalculateBoundingBox();
                 element->DrawMesh(shaderProgram);
+
             }
             
-           coll.CollisionCheck( models, sphere.Speed);
+             //coll.CollisionCheck( models, models);
+          
             
-            
-            //coll.CollisionCheck(SphereModel2 ,models, sphere.Speed);
             
             glfwSwapBuffers(window);
             glfwPollEvents();
@@ -196,8 +214,8 @@ void ProsessInput(GLFWwindow *window, float deltaTime) {
     if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
         camera.cameraPos -= cameraSpeed * camera.cameraUp;
 
-    if(glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
-        sphere.Speed = glm::vec3(0.f);
+    /*if(glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+        sphere.Speed = glm::vec3(0.f);*/
 
 
 }
