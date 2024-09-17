@@ -14,8 +14,7 @@
 
         floorModel.indices.emplace_back(0,1,3);
         floorModel.indices.emplace_back(1,2,3);
-       // floorModel.indices.emplace_back(0,2,3);
-
+        
         for (Triangle& index : floorModel.indices)
         {
             glm::vec3 normal = glm::cross(floorModel.vertices[index.B].XYZ - floorModel.vertices[index.A].XYZ, floorModel.vertices[index.C].XYZ - floorModel.vertices[index.A].XYZ);

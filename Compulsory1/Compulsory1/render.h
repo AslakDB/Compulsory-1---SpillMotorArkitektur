@@ -26,13 +26,8 @@ void ProsessInput(GLFWwindow *window, float deltaTime, model& sphere);
 struct Render {
 bool inside;
     bool isMovingForward;
-
     
-
     Render() = default;
-
-
-
     void render(GLFWwindow* window, unsigned int shaderProgram, float deltaTime, float lastFrame) {
          
         model SphereModel0, SphereModel1, SphereModel2, SphereModel3, SphereModel4;
@@ -89,12 +84,7 @@ bool inside;
         SphereModel2.PlayerPos = glm::vec3(0.f,0.1f,-1.f);
         SphereModel3.PlayerPos = glm::vec3(3.f,0.1f,0.f);
         SphereModel4.PlayerPos = glm::vec3(1.f,0.1f,-1.f);
-
-        //SphereModel0.Velocity = glm::vec3(8.f,0.f,0.f);
-        srand(time(NULL));
-
-       // float xdir = -1 + rand() % 10;
-        //sphere.Speed.x = 1.9;
+        
         while (!glfwWindowShouldClose(window))
             {
 
@@ -145,10 +135,6 @@ bool inside;
                 element->DrawMesh(shaderProgram);
 
             }
-            
-             
-          
-            
             
             glfwSwapBuffers(window);
             glfwPollEvents();

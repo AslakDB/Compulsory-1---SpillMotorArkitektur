@@ -19,14 +19,12 @@ unsigned int VBO, VAO, EBO;
     std::vector<Triangle> indices;
     std::vector<glm::vec3> corners;
 
-    glm::mat4 ModelMatrix;
+    glm::mat4 ModelMatrix = glm::mat4(1.f);
 
     aabb BoundingBox;
     
     bool isLine = false;
 
-    
-   // glm::mat4 modelMatrix= glm::mat4(1.f);
     
     glm::vec3 PlayerPos = glm::vec3(0.f);
     glm::vec3 PlayerScale = glm::vec3(1.f);
